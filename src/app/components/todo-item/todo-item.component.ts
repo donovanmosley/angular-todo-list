@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { TodoService } from '../../services/todo.service'
-;
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { TodoService } from '../../services/todo.service';
 import { Todo } from '../../models/Todo';
 import { CombineLatestSubscriber } from 'rxjs/internal/observable/combineLatest';
 
@@ -11,6 +10,7 @@ import { CombineLatestSubscriber } from 'rxjs/internal/observable/combineLatest'
 })
 export class TodoItemComponent implements OnInit {
   @Input() todo:Todo;
+  @Output() deleteTodo: EventEmitter<Todo> = new EventEmitter();
 
   constructor(private todoService:TodoService) { }
 
@@ -35,7 +35,7 @@ export class TodoItemComponent implements OnInit {
   }
 
   onDelete(todo) {
-    console.log('delete');
+    this.deleteTodo.emit(todo);
   }
 
 }
